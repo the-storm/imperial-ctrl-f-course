@@ -5,5 +5,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "7006:2121"
+    volumes:
+      - ./pyre-check:/app/pyre-check
