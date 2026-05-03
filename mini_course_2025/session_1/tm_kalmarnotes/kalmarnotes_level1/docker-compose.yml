@@ -1,4 +1,5 @@
-version: '3.8'
+# using version is obsolete
+# version: '3.8'
 
 # docker-compose.yml
 services:
