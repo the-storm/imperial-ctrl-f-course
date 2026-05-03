@@ -1,9 +1,11 @@
 version: '3.8'
 
+# docker-compose.yml
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     ports:
-      - "6002:80"
+      - "8080:80"
+    environment:
+      - ADMIN_PASSWORD=supersecret
+      - FLAG=kalmar{real_flag}
