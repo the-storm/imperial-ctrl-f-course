@@ -1,36 +1,31 @@
-FROM node:lts
+FROM node:22-bookworm-slim
 
-RUN apt update && \
-    apt install -y curl gnupg2
-
-RUN apt-get update && apt-get install gnupg wget -y && \
-    wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/google-archive.gpg && \
-    sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
-    apt-get update && \
-    apt-get install google-chrome-stable -y --no-install-recommends && \
+RUN apt-get update && apt-get install -y \
+    ca-certificates fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 \
+    libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 \
+    libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 \
+    libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
+    libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 \
+    libxss1 libxtst6 lsb-release wget xdg-utils --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
+
 ENV NODE_ENV=production
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+# Keep Puppeteer's Chromium download inside /app so it's accessible after USER switch
+ENV PUPPETEER_CACHE_DIR=/app/.cache
 
 WORKDIR /app
 RUN mkdir /app/public
 
-
 COPY src/package*.json .
-
-RUN npm install
+RUN npm install --omit=dev
 
 COPY src/ .
 
 ENV FLAG=flag{hellow}
 
-RUN useradd -ms /bin/bash user
-RUN chown -R user:user /app/public
-RUN chmod -R  +rx /app
+RUN useradd -ms /bin/bash user && \
+    chown -R user:user /app && \
+    chmod -R +rx /app
 USER user
 
 CMD ["node", "app.js"]
-
-
-
-
