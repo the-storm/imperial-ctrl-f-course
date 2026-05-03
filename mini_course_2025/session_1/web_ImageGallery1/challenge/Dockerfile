@@ -21,8 +21,6 @@ RUN npm install --omit=dev
 
 COPY src/ .
 
-ENV FLAG=flag{hellow}
-
 RUN useradd -ms /bin/bash user && \
     chown -R user:user /app && \
     chmod -R +rx /app

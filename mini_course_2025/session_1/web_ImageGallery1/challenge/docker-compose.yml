@@ -4,4 +4,5 @@ services:
     build: .
     ports:
       - '12080:3000'
-    # command: npm start
+    environment:
+      - FLAG=flag{hellow}
