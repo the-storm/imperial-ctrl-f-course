@@ -6,7 +6,7 @@ services:
   app:
     build: .
     ports:
-      - "8080:80"
+      - "11080:80"
     environment:
       - ADMIN_PASSWORD=supersecret
       - FLAG=kalmar{real_flag}
