@@ -1,0 +1,12 @@
+# using version is obsolete
+# version: '3.8'
+
+# docker-compose.yml
+services:
+  app:
+    build: .
+    ports:
+      - "11080:80"
+    environment:
+      - ADMIN_PASSWORD=supersecret
+      - FLAG=kalmar{real_flag}

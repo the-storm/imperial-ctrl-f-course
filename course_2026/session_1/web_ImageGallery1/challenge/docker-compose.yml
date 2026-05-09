@@ -1,0 +1,8 @@
+#version: '3.3'
+services:
+  web1-imagegallery:
+    build: .
+    ports:
+      - '12080:3000'
+    environment:
+      - FLAG=flag{hellow}

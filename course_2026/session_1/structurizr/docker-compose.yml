@@ -1,0 +1,11 @@
+services:
+  structurizr:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - structurizr-data:/usr/local/structurizr
+      - ./structurizr.properties:/usr/local/structurizr/structurizr.properties:ro
+
+volumes:
+  structurizr-data:
