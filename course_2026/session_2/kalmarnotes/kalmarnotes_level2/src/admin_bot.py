@@ -71,3 +71,42 @@ class AdminBot:
             
         finally:
             self.visiting = False
+
+    def visit_with_cookie(self, note_url, cookie_data):
+        if self.visiting:
+            return False
+
+        self.visiting = True
+        try:
+            parsed = urlparse(note_url)
+            if parsed.scheme not in ('http', 'https') or not parsed.netloc:
+                return False
+
+            origin = f'{parsed.scheme}://{parsed.netloc}'
+            self.driver.get(origin + '/')
+
+            cookie = {
+                'name': str(cookie_data['name']),
+                'value': str(cookie_data['value']),
+                'path': str(cookie_data.get('path', '/')),
+            }
+            if cookie_data.get('domain'):
+                cookie['domain'] = str(cookie_data['domain'])
+            if 'secure' in cookie_data:
+                cookie['secure'] = bool(cookie_data['secure'])
+            if 'httpOnly' in cookie_data:
+                cookie['httpOnly'] = bool(cookie_data['httpOnly'])
+            if cookie_data.get('sameSite') in ('Strict', 'Lax', 'None'):
+                cookie['sameSite'] = cookie_data['sameSite']
+
+            self.driver.add_cookie(cookie)
+            self.driver.get(note_url)
+            time.sleep(1)
+            return True
+
+        except Exception as e:
+            print(f"Failed to visit note with cookie: {e}", file=sys.stderr, flush=True)
+            return False
+
+        finally:
+            self.visiting = False

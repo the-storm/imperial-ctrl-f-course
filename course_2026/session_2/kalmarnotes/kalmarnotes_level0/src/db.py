@@ -91,8 +91,8 @@ class Database:
         with closing(self.connect_db()) as db:
             with db as conn:
                 cursor = conn.execute('''
-                    DELETE FROM notes WHERE id = ?
-                ''', (note_id,))
+                    DELETE FROM notes WHERE id = ? AND user_id = ?
+                ''', (note_id, user_id))
                 return cursor.rowcount > 0
 
     def get_note_by_id(self, note_id, user_id):
