@@ -1,51 +1,40 @@
 # Session 1 Practical
 
-## Objectives
+See the exercise sheet for the practical details. Below are the instructions to run the labs.
 
-Get hands-on experience with threat modeling and security review. You are not expected to exploit the applications (you may do this for fun). Focus on security review of the whole application, identifying attack surface and documeting your findings.
+### Lab 1: KalmarNotes
 
----
+Each level runs the same way. From its directory, `docker compose up -d` to start and `docker compose down` to stop. Source code is under `src/`.
 
-## Environment Setup
+| Level | Path | Port |
+|---|---|---|
+| 0 | `kalmarnotes/kalmarnotes_level0` | 6002 |
+| 1 | `kalmarnotes/kalmarnotes_level1` | 6003 |
+| 2 | `kalmarnotes/kalmarnotes_level2` | 6004 |
+| 3 | `kalmarnotes/kalmarnotes_level3` | 6005 |
 
-You need: **Git**, **Docker**, and optionally an IDE (VS Code is highly recommended).
+### Lab 2: Web Image Gallery
 
-**Recommended VS Code extension for security review:**
-Install [weaudit](https://marketplace.visualstudio.com/items?itemName=trailofbits.weaudit): it lets you annotate code with findings, mark suspicious lines, and export a report.
-
-### Lab 1 — KalmarNotes
-
-```bash
-cd tm_kalmarnotes/kalmarnotes_level1
-docker compose up -d
-
-# to stop
-docker compose down
-```
-
-App is available at **http://localhost:11080**, change the port at `docker-compose.yml` if needed. Code available at `src/`.
-
-### Lab 2 — Web Image Gallery
-
-```bash
+​```bash
 cd course_2026/session_1/web_ImageGallery1/challenge
 docker compose up -d
 # to stop
 docker compose down
-```
+​```
 
-App is available at **http://localhost:12080**
+App at **http://localhost:12080**.
 
-### Lab 3 — Structurizr 
+### Lab 3: Structurizr
 
-```
-cd structurizr
+​```bash
+cd course_2026/session_1/structurizr
 docker compose up -d
 # to stop
 docker compose down
-```
+​```
 
-App is available at **http://localhost:8080**
+App at **http://localhost:8080**.
 
-### Hedgedoc
-ToDo
+### Lab 4: HedgeDoc
+
+No local setup, navigate the upstream repo yourself. See the exercise sheet.
