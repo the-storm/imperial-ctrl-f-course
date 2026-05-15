@@ -5,7 +5,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
     libnss3 \
-    libgconf-2-4 \
+    # libgconf-2-4 \
     libfontconfig1 \
     chromium \
     chromium-driver \
@@ -23,7 +23,7 @@ ENV DISPLAY=:99
 
 ####### CHANGE HERE ##########
 ENV ADMIN_PASSWORD=xxx
-ENV FLAG=kalmar{SQLI_Getting_Started_level_0_f4d2c313cb1d3fa9}
+ENV FLAG=kalmar{test_flag}
 ENV HOSTNAME=localhost
 
 ENV CHROME_OPTIONS="--headless --disable-gpu --no-sandbox --disable-dev-shm-usage"
