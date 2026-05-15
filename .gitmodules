@@ -1,3 +1,18 @@
+[submodule "course_2025/session_1/hedgedoc"]
+	path = course_2025/session_1/hedgedoc
+	url = https://github.com/hedgedoc/hedgedoc.git
+[submodule "course_2025/session_1/structurizr/structurizr-onpremises"]
+	path = course_2025/session_1/structurizr/structurizr-onpremises
+	url = git@github.com:structurizr/onpremises.git
+[submodule "course_2025/session_1/structurizr/structurizr-ui"]
+	path = course_2025/session_1/structurizr/structurizr-ui
+	url = git@github.com:structurizr/ui.git
+[submodule "course_2025/session_4/Fuzzing-Module"]
+	path = course_2025/session_4/Fuzzing-Module
+	url = https://github.com/the-storm/Fuzzing-Module.git
+[submodule "course_2025/session_3/Pysa/pyre-check"]
+	path = course_2025/session_3/Pysa/pyre-check
+	url = https://github.com/the-storm/pyre-check.git
 [submodule "course_2026/session_1/hedgedoc"]
 	path = course_2026/session_1/hedgedoc
 	url = https://github.com/hedgedoc/hedgedoc.git
