@@ -9,8 +9,18 @@ the submodule in a local `models/` directory under this `Pysa` lab directory.
 Initialize the submodule after cloning the course repository:
 
 ```bash
-git submodule update --init --recursive
+git submodule update --init --recursive course_2026/session_2/Pysa/pyre-check
 ```
+
+If you are already in the `Pysa` lab directory, the shorter command below is
+equivalent:
+
+```bash
+git submodule update --init --recursive pyre-check
+```
+
+Avoid running a repository-wide submodule update unless you need every course
+submodule; that can fetch unrelated materials and makes setup slower.
 
 Build and enter the lab container:
 
@@ -19,12 +29,21 @@ docker compose build
 docker compose run --rm pysa
 ```
 
+The first build compiles Pyre from source and can take several minutes. Long
+quiet phases during the Git clone, OPAM setup, or OCaml build are normal.
+
 Mounted paths:
 
 ```text
 /workspace/pyre-check/documentation/pysa_tutorial
 /workspace/pysa-models
 ```
+
+The `docker-compose.yml` file may also mount Kalmar course materials using a
+host-specific absolute path. That mount is not needed for this upstream Pysa
+tutorial. If Docker reports that the Kalmar host path does not exist, either
+create the path, remove that volume for this tutorial, or replace it with your
+local Kalmar notes path.
 
 Create a model directory for each exercise as you solve it:
 
@@ -59,8 +78,11 @@ directory:
 ```
 
 For exercises that use the upstream taint stubs, run Pysa with `--no-verify`.
-The flag suppresses model-verification noise from version skew between the
-upstream Django taint models and the installed Django stubs.
+The flag lets analysis continue despite version skew between the upstream Django
+taint models and the installed Django stubs. Depending on the Pyre version, you
+may still see messages such as `Found 21 model verification errors!`; this is
+expected for exercises 3 through 5 as long as the command exits successfully and
+the final issue count matches the exercise.
 
 ## Exercise 1
 
@@ -154,7 +176,8 @@ Run:
 pyre analyze --no-verify
 ```
 
-Expected result: zero issues.
+Expected result: zero issues. It is OK if Pyre prints upstream Django model
+verification messages before the final empty JSON list.
 
 ## Exercise 4
 
@@ -193,6 +216,11 @@ sapp analyze taint-output.json
 sapp explore
 ```
 
+`--save-results-to .` writes analysis artifacts into the exercise directory,
+including files such as `taint-output.json`, `modules.json`, call graph JSON
+files, and `sapp.db`. These files are generated output and can be deleted when
+you are done exploring the results.
+
 Filter the two false-positive features in SAPP:
 
 ```text
@@ -200,6 +228,10 @@ issues(exclude_features=["always-type:bool", "always-via:assert_numeric"])
 ```
 
 Expected result: zero displayed issues.
+
+SAPP may print SQLAlchemy cache warnings in this container. They are harmless
+for the tutorial if the `issues(...)` query returns the expected number of
+displayed issues.
 
 ## Exercise 5
 
@@ -214,7 +246,9 @@ cat /workspace/pysa-models/tutorial/exercise5/generated_django_path_params.pysa
 pyre analyze --no-verify
 ```
 
-Expected result: one issue in `views.operate_on_twos`.
+Expected result: one issue in `views.operate_on_twos`. As in the previous
+exercises, upstream Django model verification messages are expected noise if the
+analysis exits successfully.
 
 Then complete the decorator generator in `generate_models.py`:
 
