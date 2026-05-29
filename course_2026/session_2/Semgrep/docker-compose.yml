@@ -1,0 +1,11 @@
+services:
+  semgrep:
+    build: .
+    image: kalmarnotes-semgrep:latest
+    volumes:
+      - /Users/storm/storm_data/repos/imperial_college/course_2026/session_1/in-class/kalmarnotes:/levels:ro
+      - ./custom_level1:/custom_level1:ro
+      - .:/workspace:ro
+      - ./reports:/scan/reports
+    environment:
+      SEMGREP_SEND_METRICS: "off"
