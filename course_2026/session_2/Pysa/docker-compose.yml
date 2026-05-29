@@ -1,9 +1,13 @@
-version: '3.8'
-
 services:
   pysa:
     build:
       context: .
       dockerfile: Dockerfile
+    image: pysa-lab
+    stdin_open: true
+    tty: true
+    working_dir: /workspace/kalmarnotes
     volumes:
-      - ./pyre-check:/app/pyre-check
+      - /Users/storm/storm_data/repos/imperial_college/course_2026/session_1/in-class/kalmarnotes:/workspace/kalmarnotes
+      - ./models:/workspace/pysa-models
+      - ./pyre-check:/workspace/pyre-check

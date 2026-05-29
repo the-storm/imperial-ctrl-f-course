@@ -25,3 +25,6 @@
 [submodule "course_2026/session_3/Pysa/pyre-check"]
 	path = course_2026/session_3/Pysa/pyre-check
 	url = https://github.com/the-storm/pyre-check.git
+[submodule "course_2026/session_2/Pysa/pyre-check"]
+	path = course_2026/session_2/Pysa/pyre-check
+	url = https://github.com/facebook/pyre-check.git
