@@ -14,7 +14,6 @@ The container mounts:
 
 ```text
 Exercise_guide.md     student-facing lab guide
-Solution_manual.md    instructor solution manual
 rules/                custom Semgrep rules
 custom_level1/        small single-file taint demo for Level 1
 ```

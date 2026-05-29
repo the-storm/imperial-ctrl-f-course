@@ -21,7 +21,7 @@ Level 0 is skipped because it does not add a meaningfully different Semgrep work
 From this directory:
 
 ```sh
-cd /Users/storm/storm_data/repos/imperial_college/course_2026/session_2/Semgrep
+cd course_2026/session_2/Semgrep
 ```
 
 Build or refresh the Semgrep container:
@@ -36,6 +36,14 @@ The lab source code is mounted in the Semgrep container at:
 /levels
 ```
 
+In this checkout, `docker-compose.yml` mounts the complete Kalmarnotes source tree from:
+
+```text
+../../session_1/in-class/kalmarnotes
+```
+
+If `/levels/kalmarnotes_level1/src/app.py` is missing inside the container, check the mount path before debugging Semgrep rules.
+
 The custom rules are mounted at:
 
 ```text
@@ -49,6 +57,8 @@ docker compose run --rm semgrep scan --validate --config /workspace/rules/level1
 docker compose run --rm semgrep scan --validate --config /workspace/rules/level2.yml /levels/kalmarnotes_level2
 docker compose run --rm semgrep scan --validate --config /workspace/rules/level3.yml /levels/kalmarnotes_level3
 ```
+
+Run these validation commands one at a time. Running several `docker compose run` commands in parallel can race while Compose creates its default network.
 
 ## How To Work
 
@@ -162,9 +172,12 @@ kalmarnotes.jinja-safe-on-user-controlled-note-data
 
 This rule looks for Jinja values marked with `| safe`. In templates, `| safe` disables escaping. That is dangerous when the value can contain user-controlled data.
 
+The rule may report both the long and short note templates. Treat all `| safe` uses in note-rendering templates as suspicious, even when one finding is less directly exploitable than another.
+
 Questions to answer:
 
 - Which template renders the long note view?
+- Does the short note template repeat the same rendering pattern?
 - Which fields are rendered with `| safe`?
 - Which of those fields can an attacker control?
 - Is the username rendered into the page?
@@ -173,6 +186,7 @@ Questions to answer:
 Fix direction:
 
 - Remove `| safe` from user-controlled values.
+- Remove unnecessary `| safe` from IDs rendered into JavaScript calls too; numeric IDs do not need HTML-safe rendering.
 - Let Jinja escape values by default.
 - Only render HTML as safe if it has first gone through a strict allowlist sanitizer.
 
@@ -238,6 +252,7 @@ Checkpoint:
 
 - The template `| safe` findings should be gone.
 - The Varnish static-extension caching findings should be gone.
+- The dynamic-route finding should be gone if unknown view types no longer render an HTML note page.
 - The generic string-route finding may remain if the route still uses a string converter. Treat it as review noise if the route now explicitly rejects unsafe view types.
 
 ## Final Check
