@@ -21,4 +21,14 @@ This prepares the AFL++ Docker image used in the session:
 imperial-fuzzing-aflplusplus-2026:pre-session
 ```
 
+## Check the Image
+
+Run this quick check:
+
+```bash
+docker compose -f docker-compose.pre-session.yml run --rm aflplusplus bash -lc 'afl-fuzz -V 1 2>&1 | head -n 5 && afl-clang-fast++ --version | head -n 1'
+```
+
+The command should print AFL++ startup/version output and a Clang version line. It is okay if AFL++ exits after printing usage or startup text; this check only confirms the container starts and the AFL++ tools are available.
+
 You do not need to run any fuzzing commands before the session.
