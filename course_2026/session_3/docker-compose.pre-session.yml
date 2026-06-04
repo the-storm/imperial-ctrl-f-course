@@ -1,0 +1,6 @@
+services:
+  aflplusplus:
+    image: imperial-fuzzing-aflplusplus-2026:pre-session
+    build:
+      context: .
+      dockerfile: Dockerfile.aflplusplus

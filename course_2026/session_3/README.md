@@ -1,8 +1,24 @@
-Steps to start this lab
-* make sure docker engine is on
-* make sure you are in imperial college repo
-* `git submodule update --init course_2026/session_4/Fuzzing-Module/`
-* `cd course_2026/session_4/Fuzzing-Module/`
-* `docker compose build && docker compose up`
-* You should see `✅ All exercises built successfully.`
-* Drop a shell into docker and make sure you have the binaries built. They are in <exerciseX>/build/<binary_name>
+# Session 3 Pre-Session Setup
+
+Complete this before the fuzzing session.
+
+## Requirement
+
+Make sure Docker Desktop or Docker Engine is installed and running.
+
+## Build the AFL++ Image
+
+From the repository root:
+
+```bash
+cd course_2026/session_3
+docker compose -f docker-compose.pre-session.yml build
+```
+
+This prepares the AFL++ Docker image used in the session:
+
+```text
+imperial-fuzzing-aflplusplus-2026:pre-session
+```
+
+You do not need to run any fuzzing commands before the session.
