@@ -1,0 +1,3 @@
+SUBMIT alice 4
+AAAA
+VIEW alice 0

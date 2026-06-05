@@ -4,3 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.aflplusplus
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./challenges:/workspace/challenges

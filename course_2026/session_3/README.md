@@ -32,3 +32,5 @@ docker compose -f docker-compose.pre-session.yml run --rm aflplusplus bash -lc '
 The command should print AFL++ startup/version output and a Clang version line. It is okay if AFL++ exits after printing usage or startup text; this check only confirms the container starts and the AFL++ tools are available.
 
 You do not need to run any fuzzing commands before the session.
+
+During the session, use the challenge manager in `challenge_manager/` to run the CTF-style submission UI.
